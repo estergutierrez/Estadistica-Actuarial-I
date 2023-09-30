@@ -2,6 +2,7 @@ library("readxl")
 library("dplyr")
 library("tidyverse")
 library("cowplot")
+library("data.table")
 library("xtable")
 library("viridis")
 
@@ -658,3 +659,137 @@ ggplot(data=df_ln)+
   theme(legend.position="none")+ scale_fill_viridis(discrete = TRUE, begin = 0.5)
 ggsave(filename = "logboxplot_Deflactor.pdf",width = w,height = h)
 
+
+# Barplots
+ggplot(data=df_regions, aes(x=`Region`, fill=Region)) +
+  geom_bar()+
+  labs(x = "Continentes",y = "Total de países", title=" ")+expand_limits(y=58)+
+  theme_minimal_hgrid(font_size = 20)+
+  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))+ 
+  scale_x_discrete( labels = c("Africa" = "África","Americas" = "América", "Asia" = "Asia","Europe" = "Europa"))+
+  theme(legend.position="none")+ scale_fill_viridis(discrete = TRUE, option = "G", begin = 0.3)
+
+df_bar <-df_regions
+df_bar$IDH <- with(df_bar, ifelse(is.na(df_bar$`Indice de desarrollo humano`)
+                                  , NA, "IDH"))
+df_bar$EVN <- with(df_bar, ifelse(is.na(df_bar$`Esperanza de vida al nacer`)
+                                  , NA, "EVN"))
+df_bar$Des <- with(df_bar, ifelse(is.na(df_bar$`Desempleo total (% del total de la fuerza laboral)`)
+                                  , NA, "Des"))
+df_bar$PNB <- with(df_bar, ifelse(is.na(df_bar$`Producto Nacional Bruto per capita`)
+                                  , NA, "PNB"))
+df_bar$Deflactor <- with(df_bar, ifelse(is.na(df_bar$`Deflactor de PIB`)
+                                  , NA, "DefPIB"))
+### Cuadros
+# Cantidad total de datos
+# Cantidad de observaciones por continente 
+datos_total <-df_regions %>% count(Region)
+datos_total <- datos_total %>% rename("Total de paises" = "n" )
+# xtable(datos_total)
+
+# Vector de columna
+Indicadores <-c("Indice de desarrollo humano", "Esperanza de vida al nacer","Desempleo total (% del total de la fuerza laboral)",
+                "Producto Nacional Bruto per capita","Deflactor de PIB")
+# America
+datos_faltantesAM <-c(sum(is.na(df_America$`Indice de desarrollo humano`)), sum(is.na(df_America$`Esperanza de vida al nacer`)),
+                      sum(is.na(df_America$`Desempleo total (% del total de la fuerza laboral)`)), sum(is.na(df_America$`Producto Nacional Bruto per capita`)),
+                      sum(is.na(df_America$`Deflactor de PIB`)))
+df_cantidadfaltaAmerica <- data.frame(Indicadores, datos_faltantesAM)
+colnames(df_cantidadfaltaAmerica)
+
+df_cantidadfaltaAmerica <- df_cantidadfaltaAmerica %>% rename("Cantidad de datos faltantes"="datos_faltantesAM")
+xtable(df_cantidadfaltaAmerica, include.rownames = FALSE)
+
+
+# America
+datos_faltantesAM <-c(sum(is.na(df_America$`Indice de desarrollo humano`)), sum(is.na(df_America$`Esperanza de vida al nacer`)),
+                      sum(is.na(df_America$`Desempleo total (% del total de la fuerza laboral)`)), sum(is.na(df_America$`Producto Nacional Bruto per capita`)),
+                      sum(is.na(df_America$`Deflactor de PIB`)))
+df_cantidadAmerica <- data.frame(Indicadores, datos_faltantesAM)
+colnames(df_cantidadAmerica)
+
+df_cantidadAmerica <- df_cantidadAmerica %>% rename("Cantidad de datos faltantes"="datos_faltantesAM")
+# xtable(df_cantidadAmerica, include.rownames = FALSE)
+
+# Asia
+datos_faltantesAS <-c(sum(is.na(df_Asia$`Indice de desarrollo humano`)), sum(is.na(df_Asia$`Esperanza de vida al nacer`)),
+                      sum(is.na(df_Asia$`Desempleo total (% del total de la fuerza laboral)`)), sum(is.na(df_Asia$`Producto Nacional Bruto per capita`)),
+                      sum(is.na(df_Asia$`Deflactor de PIB`)))
+df_cantidadfaltaAsia <- data.frame(Indicadores, datos_faltantesAS)
+df_cantidadfaltaAsia <- df_cantidadfaltaAsia %>% rename("Cantidad de datos faltantes"="datos_faltantesAS")
+# xtable(df_cantidadfaltaAsia, include.rownames = FALSE)
+
+# Africa
+datos_faltantesAF <-c(sum(is.na(df_Africa$`Indice de desarrollo humano`)), sum(is.na(df_Africa$`Esperanza de vida al nacer`)),
+                      sum(is.na(df_Africa$`Desempleo total (% del total de la fuerza laboral)`)), sum(is.na(df_Africa$`Producto Nacional Bruto per capita`)),
+                      sum(is.na(df_Africa$`Deflactor de PIB`)))
+df_cantidadfaltaAfrica <- data.frame(Indicadores, datos_faltantesAF)
+df_cantidadfaltaAfrica <- df_cantidadfaltaAfrica %>% rename("Cantidad de datos faltantes"="datos_faltantesAF")
+# xtable(df_cantidadfaltaAfrica, include.rownames = FALSE)
+
+# Europa
+datos_faltantesEU <-c(sum(is.na(df_Europa$`Indice de desarrollo humano`)), sum(is.na(df_Europa$`Esperanza de vida al nacer`)),
+                      sum(is.na(df_Europa$`Desempleo total (% del total de la fuerza laboral)`)), sum(is.na(df_Europa$`Producto Nacional Bruto per capita`)),
+                      sum(is.na(df_Europa$`Deflactor de PIB`)))
+df_cantidadfaltaEuropa <- data.frame(Indicadores, datos_faltantesEU)
+df_cantidadfaltaEuropa <- df_cantidadfaltaEuropa %>% rename("Cantidad de datos faltantes"="datos_faltantesAF")
+# xtable(df_cantidadfaltaEuropa, include.rownames = FALSE)
+
+
+# Resumen de 5 numeros
+# Vector columna
+resumen <-c("Minimo", "Primer cuartil","Mediana", "Tercer cuartil", "Maximo")
+
+# Africa
+resumen_Africa <-sapply(df_Africa[c("Indice de desarrollo humano", "Esperanza de vida al nacer",
+                   "Desempleo total (% del total de la fuerza laboral)",
+                   "Producto Nacional Bruto per capita","Deflactor de PIB")], fivenum)
+
+row.names(resumen_Africa)<-resumen
+resumen_Africa <- t(resumen_Africa)
+xtable(resumen_Africa)
+resumen_Africaln <-sapply(df_Africaln[c("Indice de desarrollo humano", "Esperanza de vida al nacer",
+                                    "Desempleo total (% del total de la fuerza laboral)",
+                                    "Producto Nacional Bruto per capita","Deflactor de PIB")], fivenum)
+row.names(resumen_Africaln)<-resumen
+resumen_Africaln <- t(resumen_Africaln)
+
+
+# America
+resumen_America <-sapply(df_America[c("Indice de desarrollo humano", "Esperanza de vida al nacer",
+                                "Desempleo total (% del total de la fuerza laboral)",
+                                "Producto Nacional Bruto per capita","Deflactor de PIB")], fivenum)
+row.names(resumen_America)<-resumen
+resumen_America <- t(resumen_America)
+resumen_Americaln <-sapply(df_Americaln[c("Indice de desarrollo humano", "Esperanza de vida al nacer",
+                                    "Desempleo total (% del total de la fuerza laboral)",
+                                    "Producto Nacional Bruto per capita","Deflactor de PIB")], fivenum)
+row.names(resumen_Americaln)<-resumen
+resumen_Americaln <- t(resumen_Americaln)
+
+
+
+# Asia
+resumen_Asia <-sapply(df_Asia[c("Indice de desarrollo humano", "Esperanza de vida al nacer",
+                                    "Desempleo total (% del total de la fuerza laboral)",
+                                    "Producto Nacional Bruto per capita","Deflactor de PIB")], fivenum)
+row.names(resumen_Asia)<-resumen
+resumen_Asia <- t(resumen_Asia)
+resumen_Asialn <-sapply(df_Asialn[c("Indice de desarrollo humano", "Esperanza de vida al nacer",
+                                        "Desempleo total (% del total de la fuerza laboral)",
+                                        "Producto Nacional Bruto per capita","Deflactor de PIB")], fivenum)
+row.names(resumen_Asialn)<-resumen
+resumen_Asialn <- t(resumen_Asialn)
+
+
+# Europa
+resumen_Europa <-sapply(df_Europa[c("Indice de desarrollo humano", "Esperanza de vida al nacer",
+                                    "Desempleo total (% del total de la fuerza laboral)",
+                                    "Producto Nacional Bruto per capita","Deflactor de PIB")], fivenum)
+row.names(resumen_Europa)<-resumen
+resumen_Europa <- t(resumen_Europa)
+resumen_Europaln <-sapply(df_Europaln[c("Indice de desarrollo humano", "Esperanza de vida al nacer",
+                                        "Desempleo total (% del total de la fuerza laboral)",
+                                        "Producto Nacional Bruto per capita","Deflactor de PIB")], fivenum)
+row.names(resumen_Europaln)<-resumen
+resumen_Europaln <- t(resumen_Europaln)
