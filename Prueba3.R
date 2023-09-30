@@ -5,6 +5,7 @@ library("cowplot")
 library("data.table")
 library("xtable")
 library("viridis")
+library("data.table")
 
 
 ### Creacion de la base de datos
@@ -727,72 +728,23 @@ df_cantidadfaltaEuropa <- df_cantidadfaltaEuropa %>% rename("Cantidad de datos f
 xtable(df_cantidadfaltaEuropa, include.rownames = FALSE)
 
 
+
 # Resumen de 5 numeros
-# Vector columna
-resumen <-c("Minimo", "Primer cuartil","Mediana", "Tercer cuartil", "Maximo")
+df_summary <-subset(df_regions, select = c(4,8,9,10,11,12))
+summary_dat <-
+  df_summary %>%
+  pivot_longer(c(`Indice de desarrollo humano`, `Esperanza de vida al nacer`,
+                 `Desempleo total (% del total de la fuerza laboral)`,
+                 `Producto Nacional Bruto per capita`, `Deflactor de PIB`), names_to = "Indicador") %>%group_by(Region, Indicador) %>% 
+  summarize(minimo = fivenum(value)[1], Q1 = fivenum(value)[2], mediana = fivenum(value)[3], 
+            Q3 = fivenum(value)[4], maximo = fivenum(value)[5])
+df_summaryln <-subset(df_ln, select = c(4,8,9,10,11,12))
+summary_datln <-
+  df_summaryln %>%
+  pivot_longer(c(`Indice de desarrollo humano`, `Esperanza de vida al nacer`,
+                 `Desempleo total (% del total de la fuerza laboral)`,
+                 `Producto Nacional Bruto per capita`, `Deflactor de PIB`), names_to = "Indicador") %>%group_by(Region, Indicador) %>% 
+  summarize(minimo = fivenum(value)[1], Q1 = fivenum(value)[2], mediana = fivenum(value)[3], 
+            Q3 = fivenum(value)[4], maximo = fivenum(value)[5])
 
-resumen_global <-sapply(df_regions[c("Indice de desarrollo humano", "Esperanza de vida al nacer",
-                                    "Desempleo total (% del total de la fuerza laboral)",
-                                    "Producto Nacional Bruto per capita","Deflactor de PIB")], fivenum)
-row.names(resumen_global)<-resumen
-resumen_global<-t(resumen_global)
-
-resumen_globalln <-sapply(df_ln[c("Indice de desarrollo humano", "Esperanza de vida al nacer",
-                                     "Desempleo total (% del total de la fuerza laboral)",
-                                     "Producto Nacional Bruto per capita","Deflactor de PIB")], fivenum)
-row.names(resumen_globalln)<-resumen
-resumen_globalln<-t(resumen_globalln)
-# Africa
-resumen_Africa <-sapply(df_Africa[c("Indice de desarrollo humano", "Esperanza de vida al nacer",
-                   "Desempleo total (% del total de la fuerza laboral)",
-                   "Producto Nacional Bruto per capita","Deflactor de PIB")], fivenum)
-df_summaryAfrica <-data.frame(resumen,resumen_Africa)
-
-row.names(resumen_Africa)<-resumen
-resumen_Africa <- t(resumen_Africa)
-xtable(resumen_Africa)
-resumen_Africaln <-sapply(df_Africaln[c("Indice de desarrollo humano", "Esperanza de vida al nacer",
-                                    "Desempleo total (% del total de la fuerza laboral)",
-                                    "Producto Nacional Bruto per capita","Deflactor de PIB")], fivenum)
-row.names(resumen_Africaln)<-resumen
-resumen_Africaln <- t(resumen_Africaln)
-
-
-# America
-resumen_America <-sapply(df_America[c("Indice de desarrollo humano", "Esperanza de vida al nacer",
-                                "Desempleo total (% del total de la fuerza laboral)",
-                                "Producto Nacional Bruto per capita","Deflactor de PIB")], fivenum)
-row.names(resumen_America)<-resumen
-resumen_America <- t(resumen_America)
-resumen_Americaln <-sapply(df_Americaln[c("Indice de desarrollo humano", "Esperanza de vida al nacer",
-                                    "Desempleo total (% del total de la fuerza laboral)",
-                                    "Producto Nacional Bruto per capita","Deflactor de PIB")], fivenum)
-row.names(resumen_Americaln)<-resumen
-resumen_Americaln <- t(resumen_Americaln)
-
-
-
-# Asia
-resumen_Asia <-sapply(df_Asia[c("Indice de desarrollo humano", "Esperanza de vida al nacer",
-                                    "Desempleo total (% del total de la fuerza laboral)",
-                                    "Producto Nacional Bruto per capita","Deflactor de PIB")], fivenum)
-row.names(resumen_Asia)<-resumen
-resumen_Asia <- t(resumen_Asia)
-resumen_Asialn <-sapply(df_Asialn[c("Indice de desarrollo humano", "Esperanza de vida al nacer",
-                                        "Desempleo total (% del total de la fuerza laboral)",
-                                        "Producto Nacional Bruto per capita","Deflactor de PIB")], fivenum)
-row.names(resumen_Asialn)<-resumen
-resumen_Asialn <- t(resumen_Asialn)
-
-
-# Europa
-resumen_Europa <-sapply(df_Europa[c("Indice de desarrollo humano", "Esperanza de vida al nacer",
-                                    "Desempleo total (% del total de la fuerza laboral)",
-                                    "Producto Nacional Bruto per capita","Deflactor de PIB")], fivenum)
-row.names(resumen_Europa)<-resumen
-resumen_Europa <- t(resumen_Europa)
-resumen_Europaln <-sapply(df_Europaln[c("Indice de desarrollo humano", "Esperanza de vida al nacer",
-                                        "Desempleo total (% del total de la fuerza laboral)",
-                                        "Producto Nacional Bruto per capita","Deflactor de PIB")], fivenum)
-row.names(resumen_Europaln)<-resumen
-resumen_Europaln <- t(resumen_Europaln)
+                     
