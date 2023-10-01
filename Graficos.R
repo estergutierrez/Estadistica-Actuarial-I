@@ -199,9 +199,9 @@ ggsave(filename = "IDHesperanza.pdf",width = w,height = h)
 
 
 ggplot(data=df_ln, mapping = aes(x =`Indice de desarrollo humano`, y=`Esperanza de vida al nacer`))+
-  geom_point(colour="blue4", shape=16,size=1)+ 
-  labs(x = "logIDH",
-       y = "logEVN",
+  geom_point(colour="red2", shape=16,size=1)+ 
+  labs(x = "lnIDH",
+       y = "lnEVN",
        title=" ")+expand_limits(x= 0)+ 
   theme_minimal_hgrid(font_size = 18)+
   theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
@@ -218,9 +218,9 @@ ggplot(data=df_regions, mapping = aes(x =`Indice de desarrollo humano`, y=`Desem
 ggsave(filename = "IDHDesempleo.pdf",width = w,height = h)
 
 ggplot(data=df_ln, mapping = aes(x =`Indice de desarrollo humano`, y=`Desempleo total (% del total de la fuerza laboral)`))+
-  geom_point(colour="blue4", shape=16,size=1)+ 
-  labs(x = "logIDH",
-       y = "logDesempleo",
+  geom_point(colour="red2", shape=16,size=1)+ 
+  labs(x = "lnIDH",
+       y = "lnDesempleo",
        title=" ")+ expand_limits(x= 0)+
   theme_minimal_hgrid(font_size = 20)+
   theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
@@ -238,7 +238,7 @@ ggplot(data=df_regions, mapping = aes(x =`Indice de desarrollo humano`, y=`Produ
 ggsave(filename = "IDHPNB.pdf",width = w,height = h)
 
 ggplot(data=df_ln, mapping = aes(x =`Indice de desarrollo humano`, y=`Producto Nacional Bruto per capita`))+
-  geom_point(colour="blue4", shape=16,size=1)+ 
+  geom_point(colour="red2", shape=16,size=1)+ 
   labs(x = "lnIDH",
        y = "lnPNB per cápita",
        title=" ")+ expand_limits(x= 0)+
@@ -259,298 +259,14 @@ ggplot(data=df_regions, mapping = aes(x =`Indice de desarrollo humano`, y= `Defl
 ggsave(filename = "IDHDef.pdf",width = w,height = h)
 
 ggplot(data=df_ln, mapping = aes(x =`Indice de desarrollo humano`, y= `Deflactor de PIB`))+
-  geom_point(colour="blue4", shape=16,size=1)+ expand_limits(x= 0)+
+  geom_point(colour="red2", shape=16,size=1)+ expand_limits(x= 0)+
   labs(x = "ln IDH",
        y = "ln Deflactor del PIB",
        title=" ")+ 
   theme_minimal_hgrid(font_size = 20)+
   theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
 
-ggsave(filename = "lnIDHDef.pdf",width = w,height = h)
-
-
- # Africa 
-ggplot(data = df_Africa, aes(x =`Indice de desarrollo humano`, y=`Esperanza de vida al nacer`)) +
-  geom_point(color = 'red')+
-  labs(x = "IDH",y = "EVN",title=" ")+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-
-
-ggsave(filename = "IDHEVN_Africa.pdf",width = w,height = h)
-
-
-ggplot(data = df_Africaln, aes(x =`Indice de desarrollo humano`, y=`Esperanza de vida al nacer`)) +
-  geom_point(color = 'red')+expand_limits(x= -0.2)+
-  labs(x = "lnIDH",y = "lnEVN",title=" ")+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-
-
-ggsave(filename = "logIDHEVN_Africa.pdf",width = w,height = h)
-
-
-ggplot(data = df_Africa, aes(x =`Indice de desarrollo humano`, y=`Desempleo total (% del total de la fuerza laboral)`)) +
-  geom_point(color = 'red')+
-  labs(
-    title = "", x = "IDH", y ="Desempleo"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "IDHDesempleo_Africa.pdf",width = w,height = h)
-
-ggplot(data = df_Africaln, aes(x =`Indice de desarrollo humano`, y=`Desempleo total (% del total de la fuerza laboral)`)) +
-  geom_point(color = 'red')+
-  labs(
-    title = "", x = "lnIDH", y ="lnDesempleo"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "logIDHDesempleo_Africa.pdf",width = w,height = h)
-
-# IDH,  producto nacional bruto per capita
-ggplot(data = df_Africa, aes(x =`Indice de desarrollo humano`, y=`Producto Nacional Bruto per capita`)) +
-  geom_point(color = 'red')+
-  labs(
-    title = "", x = "IDH", y ="PNB Per Cápita"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "IDHPNB_Africa.pdf",width = w,height = h)
-
-ggplot(data = df_Africaln, aes(x =`Indice de desarrollo humano`, y=`Producto Nacional Bruto per capita`)) +
-  geom_point(color = 'red')+
-  labs(
-    title = "", x = "lnIDH", y ="lnPNB Per Cápita"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "logIDHPNB_Africa.pdf",width = w,height = h)
-
-
-
-
-# IDH, Deflactor del PIB
-ggplot(data = df_Africa, aes(x =`Indice de desarrollo humano`, y= `Deflactor de PIB`)) +
-  geom_point(color = 'red')+
-  labs(
-    title = " ", x = "IDH", y ="Deflactor del PIB"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "IDHDeflactor_Africa.pdf",width = w,height = h)
-
-ggplot(data = df_Africaln, aes(x =`Indice de desarrollo humano`, y= `Deflactor de PIB`)) +
-  geom_point(color = 'red')+
-  labs(
-    title = " ", x = "lnIDH", y ="lnDeflactor del PIB"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "logIDHDeflactor_Africa.pdf",width = w,height = h)
-
-
-
-
-# America 
-ggplot(data = df_America, aes(x =`Indice de desarrollo humano`, y=`Esperanza de vida al nacer`)) +
-  geom_point(color = 'deeppink')+
-  labs(x = "IDH",y = "EVN",title=" ")+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "IDHEVN_America.pdf",width = w,height = h)
-
-
-ggplot(data = df_America, aes(x =`Indice de desarrollo humano`, y=`Desempleo total (% del total de la fuerza laboral)`)) +
-  geom_point(color = 'deeppink')+
-  labs(
-    title = "", x = "IDH", y ="Desempleo"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "IDHDesempleo_America.pdf",width = w,height = h)
-
-# IDH,  producto nacional bruto per capita
-ggplot(data = df_America, aes(x =`Indice de desarrollo humano`, y=`Producto Nacional Bruto per capita`)) +
-  geom_point(color = 'deeppink')+
-  labs(
-    title = "", x = "IDH", y ="PNB Per Cápita"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "IDHPNB_America.pdf",width = w,height = h)
-
-
-# IDH, Deflactor del PIB
-ggplot(data = df_America, aes(x =`Indice de desarrollo humano`, y= `Deflactor de PIB`)) +
-  geom_point(color = 'deeppink')+
-  labs(
-    title = " ", x = "IDH", y ="Deflactor del PIB"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "IDHDeflactor_America.pdf",width = w,height = h)
-
-
-
-# Asia
-ggplot(data = df_Asia, aes(x =`Indice de desarrollo humano`, y=`Esperanza de vida al nacer`)) +
-  geom_point(color = 'deepskyblue2')+
-  labs(x = "IDH",y = "EVN",title=" ")+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "IDHEVN_Asia.pdf",width = w,height = h)
-
-
-ggplot(data = df_Asia, aes(x =`Indice de desarrollo humano`, y=`Desempleo total (% del total de la fuerza laboral)`)) +
-  geom_point(color = 'deepskyblue2')+
-  labs(
-    title = "", x = "IDH", y ="Desempleo total"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "IDHDesempleo_Asia.pdf",width = w,height = h)
-
-# IDH,  producto nacional bruto per capita
-ggplot(data = df_Asia, aes(x =`Indice de desarrollo humano`, y=`Producto Nacional Bruto per capita`)) +
-  geom_point(color = 'deepskyblue2')+
-  labs(
-    title = "", x = "IDH", y ="PNB Per Cápita"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "IDHPNB_Asia.pdf",width = w,height = h)
-
-
-# IDH, Deflactor del PIB
-ggplot(data = df_Asia, aes(x =`Indice de desarrollo humano`, y= `Deflactor de PIB`)) +
-  geom_point(color = 'deepskyblue2')+
-  labs(
-    title = " ", x = "IDH", y ="Deflactor del PIB"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "IDHDeflactor_Asia.pdf",width = w,height = h)
-
-# ln
-ggplot(data = df_Asialn, aes(x =`Indice de desarrollo humano`, y=`Esperanza de vida al nacer`)) +
-  geom_point(color = 'deepskyblue2')+
-  labs(x = "lnIDH",y = "lnEVN",title=" ")+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "logIDHEVN_Asia.pdf",width = w,height = h)
-
-
-ggplot(data = df_Asialn, aes(x =`Indice de desarrollo humano`, y=`Desempleo total (% del total de la fuerza laboral)`)) +
-  geom_point(color = 'deepskyblue2')+
-  labs(
-    title = "", x = "lnIDH", y ="lnDesempleo"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "logIDHDesempleo_Asia.pdf",width = w,height = h)
-
-# IDH,  producto nacional bruto per capita
-ggplot(data = df_Asialn, aes(x =`Indice de desarrollo humano`, y=`Producto Nacional Bruto per capita`)) +
-  geom_point(color = 'deepskyblue2')+
-  labs(
-    title = "", x = "lnIDH", y ="lnPNB Per Cápita"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "logIDHPNB_Asia.pdf",width = w,height = h)
-
-
-# IDH, Deflactor del PIB
-ggplot(data = df_Asialn, aes(x =`Indice de desarrollo humano`, y= `Deflactor de PIB`)) +
-  geom_point(color = 'deepskyblue2')+
-  labs(
-    title = " ", x = "lnIDH", y ="lnDeflactor del PIB"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "logIDHDeflactor_Asia.pdf",width = w,height = h)
-
-
-
-# Europa
-ggplot(data = df_Europa, aes(x =`Indice de desarrollo humano`, y=`Esperanza de vida al nacer`)) +
-  geom_point(color = 'limegreen')+
-  labs(x = "IDH",y = "EVN",title=" ")+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "IDHEVN_Europa.pdf",width = w,height = h)
-
-
-ggplot(data = df_Europa, aes(x =`Indice de desarrollo humano`, y=`Desempleo total (% del total de la fuerza laboral)`)) +
-  geom_point(color = 'limegreen')+
-  labs(
-    title = "", x = "IDH", y ="Desempleo total"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "IDHDesempleo_Europa.pdf",width = w,height = h)
-
-# IDH,  producto nacional bruto per capita
-ggplot(data = df_Europa, aes(x =`Indice de desarrollo humano`, y=`Producto Nacional Bruto per capita`)) +
-  geom_point(color = 'limegreen')+
-  labs(
-    title = "", x = "IDH", y ="PNB Per Cápita"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "IDHPNB_Europa.pdf",width = w,height = h)
-
-
-# IDH, Deflactor del PIB
-ggplot(data = df_Europa, aes(x =`Indice de desarrollo humano`, y= `Deflactor de PIB`)) +
-  geom_point(color = 'limegreen')+
-  labs(
-    title = " ", x = "IDH", y ="Deflactor del PIB"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "IDHDeflactor_Europa.pdf",width = w,height = h)
-
-
-#ln 
-ggplot(data = df_Europaln, aes(x =`Indice de desarrollo humano`, y=`Esperanza de vida al nacer`)) +
-geom_point(color = 'limegreen')+
-  labs(x = "lnIDH",y = "lnEVN",title=" ")+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "logIDHEVN_Europa.pdf",width = w,height = h)
-
-
-ggplot(data = df_Europaln, aes(x =`Indice de desarrollo humano`, y=`Desempleo total (% del total de la fuerza laboral)`)) +
-  geom_point(color = 'limegreen')+
-  labs(
-    title = "", x = "lnIDH", y ="lnDesempleo"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "logIDHDesempleo_Europa.pdf",width = w,height = h)
-
-# IDH,  producto nacional bruto per capita
-ggplot(data = df_Europaln, aes(x =`Indice de desarrollo humano`, y=`Producto Nacional Bruto per capita`)) +
-  geom_point(color = 'limegreen')+
-  labs(
-    title = "", x = "lnIDH", y ="lnPNB Per Cápita"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "logIDHPNB_Europa.pdf",width = w,height = h)
-
-
-# IDH, Deflactor del PIB
-ggplot(data = df_Europaln, aes(x =`Indice de desarrollo humano`, y= `Deflactor de PIB`)) +
-  geom_point(color = 'limegreen')+
-  labs(
-    title = " ", x = "lnIDH", y ="lnDeflactor del PIB"
-  )+ 
-  theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
-ggsave(filename = "logIDHDeflactor_Europa.pdf",width = w,height = h)
+ggsave(filename = "logIDHDef.pdf",width = w,height = h)
 
 
 
@@ -570,7 +286,7 @@ ggplot(data=df_regions)+
 ggsave(filename = "boxplot_IDH.pdf",width = w,height = h)
 
 #IDH ln
-ggplot(data=df_regions)+
+ggplot(data=df_ln)+
   geom_boxplot(mapping = aes(x = Region, y=`Indice de desarrollo humano` , fill=Region))+
   labs(x = "Continentes",y = "lnIDH", title=" ")+
   theme_minimal_hgrid(font_size = 20)+
@@ -680,7 +396,7 @@ df_bar$Des <- with(df_bar, ifelse(is.na(df_bar$`Desempleo total (% del total de 
 df_bar$PNB <- with(df_bar, ifelse(is.na(df_bar$`Producto Nacional Bruto per capita`)
                                   , NA, "PNB"))
 df_bar$Deflactor <- with(df_bar, ifelse(is.na(df_bar$`Deflactor de PIB`)
-                                  , NA, "DefPIB"))
+                                        , NA, "DefPIB"))
 ### Cuadros
 # Cantidad total de datos
 # Cantidad de observaciones por continente 
@@ -747,4 +463,36 @@ summary_datln <-
   summarize(minimo = fivenum(value)[1], Q1 = fivenum(value)[2], mediana = fivenum(value)[3], 
             Q3 = fivenum(value)[4], maximo = fivenum(value)[5])
 
-                     
+# IDH
+summary_IDH <-summary_dat[summary_dat$Indicador=="Indice de desarrollo humano",]
+summary_IDHln <-summary_datln[summary_datln$Indicador=="Indice de desarrollo humano",]
+
+df_summaryIDH <- merge(x=summary_IDH,y=summary_IDHln, 
+                       by=c("Region", "Indicador"), all=TRUE)
+df_summaryIDH<-t(df_summaryIDH)
+xtable(df_summaryIDH)
+
+#EVN
+summary_EVN <-summary_dat[summary_dat$Indicador=="Esperanza de vida al nacer",]
+summary_EVNln <-summary_datln[summary_datln$Indicador=="Esperanza de vida al nacer",]
+
+df_summaryEVN <- merge(x=summary_EVN,y=summary_EVNln, 
+                       by=c("Region", "Indicador"), all=TRUE)
+
+df_summaryEVN[] <- lapply(df_summaryEVN, function(x) if(is.numeric(x)) round(x, 2) else x)
+df_summaryEVN<-format(df_summaryEVN, decimal.mark=",")
+df_summaryEVN <-t(df_summaryEVN)
+xtable(df_summaryEVN)
+
+#Deflactor
+summary_Def <-summary_dat[summary_dat$Indicador=="Deflactor de PIB",]
+summary_Defln <-summary_datln[summary_datln$Indicador=="Deflactor de PIB",]
+
+df_summaryDef <- merge(x=summary_Def,y=summary_Defln, 
+                       by=c("Region", "Indicador"), all=TRUE)
+
+df_summaryDef[] <- lapply(df_summaryDef, function(x) if(is.numeric(x)) round(x, 2) else x)
+df_summaryDef<-format(df_summaryDef, decimal.mark=",")
+df_summaryDef <-t(df_summaryDef)
+xtable(df_summaryDef)
+
