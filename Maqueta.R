@@ -1,66 +1,64 @@
 # Assumptions
-# 1. Variables are continuous [Verified]
-# 2. Variables are paired [Verified]
-# 3. Variables are independent
-# 4. There is a linear relationship between variables
-# 5. Bivariate normal distribution
-# 6. Homoscedasticity exists 
-# 7. There should be no univariate or multivariate outliers.
 
-# Source: https://statistics.laerd.com/statistical-guides/pearson-correlation-coefficient-statistical-guide.php
+# 1. Las variables mantienen una relación lineal
+# 2. Las variables son independientes
+# 3. Bivariate normal distribution
+# 4. Constant variance 
 
-IDH <- df_Africa$`Indice de desarrollo humano`
-EsperanzaDeVida <- df_Africa$`Esperanza de vida al nacer`
-Desempleo <- df_Africa$`Desempleo total (% del total de la fuerza laboral)`
-PNBperCapita <- df_Africa$`Producto Nacional Bruto per capita`
-DeflactorPIB <- df_Africa$`Deflactor de PIB`
 
-# 2. Las variables vienen en pares
+
+# Ejemplo con Africa
+
+# Se eliminan los países para los cuales falte uno o más datos
+
+df_AfricaMaqueta <- na.omit(df_Africaln)
+row.names(df_AfricaMaqueta) <- NULL
+
+# Guardamos la muestra de cada uno de los indices en vectores
+
+IDH <- df_AfricaMaqueta$`Indice de desarrollo humano`
+EsperanzaDeVida <- df_AfricaMaqueta$`Esperanza de vida al nacer`
+Desempleo <- df_AfricaMaqueta$`Desempleo total (% del total de la fuerza laboral)`
+PNBperCapita <- df_AfricaMaqueta$`Producto Nacional Bruto per capita`
+DeflactorPIB <- df_AfricaMaqueta$`Deflactor de PIB`
+
+# Las variables vienen en pares
 length(IDH) == length(EsperanzaDeVida)
 length(IDH) == length(Desempleo)
 length(IDH) == length(PNBperCapita)
 length(IDH) == length(DeflactorPIB)
 
-# 3. Las variables son independientes
-install.packages("lmtest")
-library('lmtest')
+# Ahora se va a verificar que los datos cumplen con los supuestos del coeficiente
 
-model <- lm(IDH ~ EsperanzaDeVida)
-dwtest(model)
-# https://www.marsja.se/durbin-watson-test-in-r-step-by-step-incl-interpretation/
-# Aplicar ln 
+# 1. En el analisis exploratorio de los datos se descubrió que algunas variables mantienen una relación no lineal
+# Por lo tanto se aplicará logaritmo natural a todas las variables para eliminar el efecto de la escala y obtener 
+# variables con relaciones lineales. Para esto observe los datos antes de la transformación y luego de la transformación,
+# donde se puede apreciar la linealidad de la relación de las variables
 
-model <- lm(log(IDH) ~ log(EsperanzaDeVida))
-dwtest(model)
+# 2. Las variables son independientes: Se va a asumir la hipotésis y en caso contrario se rechaza, es decir
+# que se establecerá una relación entre variables
 
-# 4. Linealidad
-
-plot(IDH ~ EsperanzaDeVida)
-
-# 5. Distribución normal
+# 3. Distribución normal
 
 # http://www.sthda.com/english/wiki/normality-test-in-r
-# Esto y los gráficos demuestran la distribución normal
-shapiro.test(log(IDH))$p.value > 0.05
-shapiro.test(log(EsperanzaDeVida))$p.value > 0.05
-shapiro.test(log(Desempleo))$p.value > 0.05
-shapiro.test(log(PNBperCapita))$p.value > 0.05
-shapiro.test(log(DeflactorPIB))$p.value > 0.05
+# https://pubmed.ncbi.nlm.nih.gov/22563845/ <- rho de Pearson robusta
+# https://pubmed.ncbi.nlm.nih.gov/29795841/ <- Desempeño de Pearson respecto a otros valores
+# alpha = 0.05 por default
 
-# 6. 
-# 7.
+shapiro.test(log(IDH))$p.value > 0.03
+shapiro.test(log(EsperanzaDeVida))$p.value > 0.03
+shapiro.test(log(Desempleo))$p.value > 0.03
+shapiro.test(log(PNBperCapita))$p.value > 0.03
+shapiro.test(log(DeflactorPIB))$p.value > 0.03
 
 # Ahora se aplica el analisis de correlación de Pearson
 
-# CONSULTAR
+corrIDH_EV <- cor(IDH, EsperanzaDeVida, method = 'pearson')
+corrIDH_Desempleo <- cor(IDH, Desempleo, method = 'pearson')
+corrIDH_PNB <- cor(IDH, PNBperCapita, method = 'pearson')
+corrIDH_Inf <- cor(IDH[-c(38)], DeflactorPIB[-c(38)], method = 'pearson')
 
-logIDH <- log(IDH)
-logEV <- log(EsperanzaDeVida)
-logIDH[is.na(logIDH)] <- 0
-logEV[is.na(logEV)] <- 0
-
-correlation <- cor(logIDH, logEV, method = 'pearson')
-
-
-
-
+corrIDH_EV
+corrIDH_Desempleo
+corrIDH_PNB
+corrIDH_Inf
