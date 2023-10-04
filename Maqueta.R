@@ -62,3 +62,28 @@ corrIDH_EV
 corrIDH_Desempleo
 corrIDH_PNB
 corrIDH_Inf
+
+Pearson <- c(corrIDH_EV, corrIDH_Desempleo, corrIDH_PNB, corrIDH_Inf)
+
+# Correlación de Spearman
+corrS_IDH_EV <- cor(IDH, EsperanzaDeVida, method = 'spearman')
+corrS_IDH_Desempleo <- cor(IDH, Desempleo, method = 'spearman')
+corrS_IDH_PNB <- cor(IDH, PNBperCapita, method = 'spearman')
+corrS_IDH_Inf <- cor(IDH, DeflactorPIB, method = 'spearman')
+
+corrS_IDH_EV
+corrS_IDH_Desempleo
+corrS_IDH_PNB
+corrS_IDH_Inf
+
+Spearman <- c(corrS_IDH_EV, corrS_IDH_Desempleo, corrS_IDH_PNB, corrS_IDH_Inf)
+Variables <- c('IDH-EVN', 'IDH-Desempleo', 'IDH-PNB per cápita', 'IDH-Deflactor del PIB')
+
+coeficientes <- data.frame(Variables, Pearson, Spearman)
+
+
+ggplot(df_Africa, aes(x=`Deflactor de PIB`)) +
+  geom_histogram(binwidth=.5, colour="black", fill="white")
+
+ggplot(df_AfricaMaqueta, aes(x = `Deflactor de PIB`)) +
+  geom_histogram(binwidth=.5, colour="black", fill="white")
