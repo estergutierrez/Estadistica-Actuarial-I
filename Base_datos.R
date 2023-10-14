@@ -226,7 +226,8 @@ ggplot(data=df_regions, mapping = aes(x =`Indice de desarrollo humano`, y=`Desem
        y = "Desempleo total",
        title=" ")+ 
   theme_minimal_hgrid(font_size = 23)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
+  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))+
+  ylab(expression(paste("Desempleo \ntotal" )))
 
 ggsave(filename = "IDHDesempleo.pdf",width = w,height = h)
 
@@ -246,7 +247,8 @@ ggplot(data=df_regions, mapping = aes(x =`Indice de desarrollo humano`, y=`Produ
        y = "PNB per cápita",
        title=" ")+ 
   theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
+  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))+
+  ylab(expression(paste("PNB per \ncápita" )))
 
 ggsave(filename = "IDHPNB.pdf",width = w,height = h)
 
@@ -256,7 +258,8 @@ ggplot(data=df_ln, mapping = aes(x =`Indice de desarrollo humano`, y=`Producto N
        y = "lnPNB per cápita",
        title=" ")+ expand_limits(x= 0)+
   theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
+  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))+
+  ylab(expression(paste("ln PNB per \ncápita" )))
 
 ggsave(filename = "logIDHPNB.pdf",width = w,height = h)
 
@@ -267,7 +270,8 @@ ggplot(data=df_regions, mapping = aes(x =`Indice de desarrollo humano`, y= `Defl
        y = "Deflactor del PIB",
        title=" ")+ 
   theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
+  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))+
+  ylab(expression(paste("Deflactor \ndel PIB" )))
 
 ggsave(filename = "IDHDef.pdf",width = w,height = h)
 
@@ -277,7 +281,8 @@ ggplot(data=df_ln, mapping = aes(x =`Indice de desarrollo humano`, y= `Deflactor
        y = "ln Deflactor del PIB",
        title=" ")+ 
   theme_minimal_hgrid(font_size = 20)+
-  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))
+  theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))+
+  ylab(expression(paste("ln Deflactor \ndel PIB" )))
 
 ggsave(filename = "logIDHDef.pdf",width = w,height = h)
 
@@ -345,8 +350,8 @@ ggplot(data=df_ln)+
   geom_boxplot(mapping = aes(x = Region, y=`Desempleo total (% del total de la fuerza laboral)` , fill=Region))+
   labs(x = "Continentes",y = "lnDesempleo", title=" ")+
   theme_minimal_hgrid(font_size = 20)+
+  scale_x_discrete( labels = c("Africa" = "África","Americas" = "América", "Asia" = "Asia","Europe" = "Europa"))+
   theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))+
-  scale_x_discrete( labels = c("Africa" = "África","Americas" = "América", "Asia" = "Asia","Europe" = "Europa"))+ 
   theme(legend.position="none")+ scale_fill_manual(values=c("#DD6E42","#E8DAB2" , "#AEC5EB" ,"#98A88A"))
 ggsave(filename = "logboxplot_Desempleo.pdf",width = w,height = h)
 
@@ -357,7 +362,8 @@ ggplot(data=df_regions)+
   theme_minimal_hgrid(font_size = 20)+
   theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))+
   scale_x_discrete( labels = c("Africa" = "África","Americas" = "América", "Asia" = "Asia","Europe" = "Europa"))+ 
-  theme(legend.position="none")+scale_fill_manual(values=c("#DD6E42","#E8DAB2" , "#AEC5EB" ,"#98A88A"))
+  theme(legend.position="none")+scale_fill_manual(values=c("#DD6E42","#E8DAB2" , "#AEC5EB" ,"#98A88A"))+
+  ylab(expression(paste("PNB per\ncápita" )))
 ggsave(filename = "boxplot_PNB.pdf",width = w,height = h)
 
 # PNB ln
@@ -367,7 +373,8 @@ ggplot(data=df_ln)+
   theme_minimal_hgrid(font_size = 20)+
   theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))+
   scale_x_discrete( labels = c("Africa" = "África","Americas" = "América", "Asia" = "Asia","Europe" = "Europa"))+ 
-  theme(legend.position="none")+ scale_fill_manual(values=c("#DD6E42","#E8DAB2" , "#AEC5EB" ,"#98A88A"))
+  theme(legend.position="none")+ scale_fill_manual(values=c("#DD6E42","#E8DAB2" , "#AEC5EB" ,"#98A88A"))+
+  ylab(expression(paste("ln PNB per\ncápita" )))
 ggsave(filename = "logboxplot_PNB.pdf",width = w,height = h)
 
 # Deflactor
@@ -397,19 +404,10 @@ ggplot(data=df_regions, aes(x=`Region`, fill=Region)) +
   theme_minimal_hgrid(font_size = 20)+
   theme(axis.title.y = element_text(size=rel(1), angle = 0, hjust = 1 ))+ 
   scale_x_discrete( labels = c("Africa" = "África","Americas" = "América", "Asia" = "Asia","Europe" = "Europa"))+
-  theme(legend.position="none")+scale_fill_manual(values=c("#DD6E42","#E8DAB2" , "#AEC5EB" ,"#98A88A"))
+  theme(legend.position="none")+scale_fill_manual(values=c("#DD6E42","#E8DAB2" , "#AEC5EB" ,"#98A88A"))+
+  ylab(expression(paste("Total de \npaíses" )))
 ggsave(filename = "barplot_regiones.pdf",width = w,height = h)
-df_bar <-df_regions
-df_bar$IDH <- with(df_bar, ifelse(is.na(df_bar$`Indice de desarrollo humano`)
-                                  , NA, "IDH"))
-df_bar$EVN <- with(df_bar, ifelse(is.na(df_bar$`Esperanza de vida al nacer`)
-                                  , NA, "EVN"))
-df_bar$Des <- with(df_bar, ifelse(is.na(df_bar$`Desempleo total (% del total de la fuerza laboral)`)
-                                  , NA, "Des"))
-df_bar$PNB <- with(df_bar, ifelse(is.na(df_bar$`Producto Nacional Bruto per capita`)
-                                  , NA, "PNB"))
-df_bar$Deflactor <- with(df_bar, ifelse(is.na(df_bar$`Deflactor de PIB`)
-                                        , NA, "DefPIB"))
+
 ### Cuadros
 # Cantidad total de datos
 # Cantidad de observaciones por continente 
