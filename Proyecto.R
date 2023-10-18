@@ -1,9 +1,13 @@
 ######################################################################## Africa
-
+library("dplyr")
+library("tidyverse")
+library("WRS2")
 # Se eliminan los países para los cuales falte uno o más datos
 
 df_AfricaMaqueta <- na.omit(df_Africaln)
 row.names(df_AfricaMaqueta) <- NULL
+write.csv(df_AfricaMaqueta, "C:/Users/Ana/Desktop/II-2023/Estadistica I, CA0303/Proyecto/Bases de datos/df_AfricaMaqueta.csv", row.names=FALSE)
+
 
 # Guardamos la muestra de cada uno de los indices en vectores
 
@@ -50,9 +54,24 @@ corrS_IDH_PNB <- cor(IDH_Africa, PNBperCapita_Africa, method = 'spearman')
 corrS_IDH_Inf <- cor(IDH_Africa, DeflactorPIB_Africa, method = 'spearman')
 
 Spearman_Africa <- c(corrS_IDH_EV, corrS_IDH_Desempleo, corrS_IDH_PNB, corrS_IDH_Inf)
+
+
+#Prueba 
+corrW_IDH_EV <-wincor(IDH_Africa, EsperanzaDeVida_Africa)[1]
+corrW_IDH_Desempleo <- wincor(IDH_Africa, Desempleo_Africa)[1]
+corrW_IDH_PNB <-wincor(IDH_Africa, PNBperCapita_Africa)[1]
+corrW_IDH_Inf <- wincor(IDH_Africa, DeflactorPIB_Africa)[1]
+temp <- t(data.frame(c(corrW_IDH_EV, corrW_IDH_Desempleo, corrW_IDH_PNB, corrW_IDH_Inf)))
+row.names(temp) <-NULL
+Winsor_Africa <-data.frame(temp)
+Winsor_Africa <- Winsor_Africa  %>% rename("Winsor_Africa" = "temp")
+
 Variables <- c('IDH-EVN', 'IDH-Desempleo', 'IDH-PNB per cápita', 'IDH-Deflactor del PIB')
 
-coeficientes_Africa <- data.frame(Variables, Pearson_Africa, Spearman_Africa)
+
+
+coeficientes_Africa <- data.frame(Variables, Pearson_Africa, Spearman_Africa, Winsor_Africa)
+
 
 ########################################################################### Asia
 
@@ -94,9 +113,23 @@ corrS_IDH_Desempleo <- cor(IDH_Asia, Desempleo_Asia, method = 'spearman')
 corrS_IDH_PNB <- cor(IDH_Asia, PNBperCapita_Asia, method = 'spearman')
 corrS_IDH_Inf <- cor(IDH_Asia, DeflactorPIB_Asia, method = 'spearman')
 
+
 Spearman_Asia <- c(corrS_IDH_EV, corrS_IDH_Desempleo, corrS_IDH_PNB, corrS_IDH_Inf)
 
-coeficientes_Asia <- data.frame(Variables, Pearson_Asia, Spearman_Asia)
+
+#Prueba 
+corrW_IDH_EV <-wincor(IDH_Asia, EsperanzaDeVida_Asia)[1]
+corrW_IDH_Desempleo <- wincor(IDH_Asia, Desempleo_Asia)[1]
+corrW_IDH_PNB <- wincor(IDH_Asia, PNBperCapita_Asia)[1]
+corrW_IDH_Inf <- wincor(IDH_Asia, DeflactorPIB_Asia)[1]
+temp <- t(data.frame(c(corrW_IDH_EV, corrW_IDH_Desempleo, corrW_IDH_PNB, corrW_IDH_Inf)))
+row.names(temp) <-NULL
+Winsor_Asia <-data.frame(temp)
+Winsor_Asia<- Winsor_Asia  %>% rename("Winsor_Asia" = "temp")
+
+
+
+coeficientes_Asia <- data.frame(Variables, Pearson_Asia, Spearman_Asia, Winsor_Asia)
 
 ######################################################################### America
 
@@ -142,7 +175,19 @@ corrS_IDH_Inf <- cor(IDH_America, DeflactorPIB_America, method = 'spearman')
 
 Spearman_America <- c(corrS_IDH_EV, corrS_IDH_Desempleo, corrS_IDH_PNB, corrS_IDH_Inf)
 
-coeficientes_America <- data.frame(Variables, Pearson_America, Spearman_America)
+#Prueba
+corrW_IDH_EV <-wincor(IDH_America, EsperanzaDeVida_America)[1]
+corrW_IDH_Desempleo <- wincor(IDH_America, Desempleo_America)[1]
+corrW_IDH_PNB <- wincor(IDH_America, PNBperCapita_America)[1]
+corrW_IDH_Inf <- wincor(IDH_America, DeflactorPIB_America)[1]
+temp <- t(data.frame(c(corrW_IDH_EV, corrW_IDH_Desempleo, corrW_IDH_PNB, corrW_IDH_Inf)))
+row.names(temp) <-NULL
+Winsor_America <-data.frame(temp)
+Winsor_America<- Winsor_America  %>% rename("Winsor_America" = "temp")
+
+
+
+coeficientes_America <- data.frame(Variables, Pearson_America, Spearman_America, Winsor_America)
 
 ######################################################################### Europa
 
@@ -184,8 +229,19 @@ corrS_IDH_Inf <- cor(IDH_Europa, DeflactorPIB_Europa, method = 'spearman')
 
 Spearman_Europa <- c(corrS_IDH_EV, corrS_IDH_Desempleo, corrS_IDH_PNB, corrS_IDH_Inf)
 
-coeficientes_Europa <- data.frame(Variables, Pearson_Europa, Spearman_Europa)
+#Prueba
+corrW_IDH_EV <-wincor(IDH_Europa, EsperanzaDeVida_Europa)[1]
+corrW_IDH_Desempleo <- wincor(IDH_Europa, Desempleo_Europa)[1]
+corrW_IDH_PNB <- wincor(IDH_Europa, PNBperCapita_Europa)[1]
+corrW_IDH_Inf <- wincor(IDH_Europa, DeflactorPIB_Europa)[1]
+temp <- t(data.frame(c(corrW_IDH_EV, corrW_IDH_Desempleo, corrW_IDH_PNB, corrW_IDH_Inf)))
+row.names(temp) <-NULL
+Winsor_Europa <-data.frame(temp)
+Winsor_Europa<- Winsor_Europa  %>% rename("Winsor_Europa" = "temp")
+
+
+
+coeficientes_Europa <- data.frame(Variables, Pearson_Europa, Spearman_Europa, Winsor_Europa)
 
 coef <-  cbind(coeficientes_Africa, coeficientes_America,coeficientes_Asia, coeficientes_Europa)
-coef <- subset(coef, select = c(-4,-7,-10))
-
+coef <- subset(coef, select = c(-5,-9,-13))
