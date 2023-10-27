@@ -457,7 +457,7 @@ xtable(df_cantidadfaltaEuropa, include.rownames = FALSE)
 
 
 # Resumen de 5 numeros
-df_summary <-subset(df_regions, select = c(4,8,9,10,11,12))
+df_summary <-subset(df_regions, select = c(4,6,7,8,9,10))
 summary_dat <-
   df_summary %>%
   pivot_longer(c(`Indice de desarrollo humano`, `Esperanza de vida al nacer`,
@@ -465,7 +465,7 @@ summary_dat <-
                  `Producto Nacional Bruto per capita`, `Deflactor de PIB`), names_to = "Indicador") %>%group_by(Region, Indicador) %>% 
   summarize(minimo = fivenum(value)[1], Q1 = fivenum(value)[2], mediana = fivenum(value)[3], 
             Q3 = fivenum(value)[4], maximo = fivenum(value)[5])
-df_summaryln <-subset(df_ln, select = c(4,8,9,10,11,12))
+df_summaryln <-subset(df_ln, select = c(4,6,7,8,9,10))
 summary_datln <-
   df_summaryln %>%
   pivot_longer(c(`Indice de desarrollo humano`, `Esperanza de vida al nacer`,
