@@ -1,8 +1,9 @@
 ######################################################################## Africa
 library("dplyr")
 library("tidyverse")
-library("intervals")
 library("WRS2")
+
+
 # Se eliminan los países para los cuales falte uno o más datos
 
 df_AfricaMaqueta <- na.omit(df_Africaln)
@@ -44,7 +45,7 @@ shapiro.test(DeflactorPIB_Africa)
 corrIDH_EV <- cor(IDH_Africa, EsperanzaDeVida_Africa, method = 'pearson')
 corrIDH_Desempleo <- cor(IDH_Africa, Desempleo_Africa, method = 'pearson')
 corrIDH_PNB <- cor(IDH_Africa, PNBperCapita_Africa, method = 'pearson')
-corrIDH_Inf <- cor(IDH_Africa[-c(38)], DeflactorPIB_Africa[-c(38)], method = 'pearson')
+corrIDH_Inf <- cor(IDH_Africa[-c(39)], DeflactorPIB_Africa[-c(38)], method = 'pearson')
 
 Pearson_Africa <- c(corrIDH_EV, corrIDH_Desempleo, corrIDH_PNB, corrIDH_Inf)
 
@@ -61,6 +62,8 @@ Spearman_Africa <- c(corrS_IDH_EV, corrS_IDH_Desempleo, corrS_IDH_PNB, corrS_IDH
 
 
 #Prueba 
+#p<-winsor.cor.test(IDH_Africa, EsperanzaDeVida_Africa)
+
 corrW_IDH_EV <-wincor(IDH_Africa, EsperanzaDeVida_Africa)[1]
 corrW_IDH_Desempleo <- wincor(IDH_Africa, Desempleo_Africa)[1]
 corrW_IDH_PNB <-wincor(IDH_Africa, PNBperCapita_Africa)[1]
@@ -76,14 +79,29 @@ Variables <- c('IDH-EVN', 'IDH-Desempleo', 'IDH-PNB per cápita', 'IDH-Deflactor
 
 coeficientes_Africa <- data.frame(Variables, Pearson_Africa, Spearman_Africa, Winsor_Africa)
 
+#write_xlsx(coeficientes_Africa, "C:/Users/Ana/Desktop/II-2023/Estadistica I, CA0303/Proyecto/Bases de datos/temp.xlsx")
+
 # Intervalos de confianza
-# Pearson
+# Pearson, menos Inf
 n <-nrow(df_AfricaMaqueta)
 z_Africa <-z_fisher(Pearson_Africa)
 SE_pearsonAfrica <-SE_pearson(n)
 
 CI_lowersP<-Back_r(CI_lower(z_Africa, 1.96, SE_pearsonAfrica))
 CI_uppersP<-Back_r(CI_upper(z_Africa, 1.96, SE_pearsonAfrica))
+
+CI_lowersP<-CI_lowersP[-4]
+CI_uppersP<-CI_uppersP[-4]
+
+# Pearson Inf
+z_Africa <-z_fisher(Pearson_Africa[4])
+SE_pearsonAfrica <-SE_pearson(n-1)
+Inf_lower<-Back_r(CI_lower(z_Africa, 1.96, SE_pearsonAfrica))
+Inf_Upper<-Back_r(CI_upper(z_Africa, 1.96, SE_pearsonAfrica))
+
+
+CI_lowersP <- append(CI_lowersP,Inf_lower)
+CI_uppersP<-append(CI_uppersP,Inf_Upper)
 
 Intervalos_AfricaPearson<- cbind(CI_uppersP, CI_lowersP)
 Intervalos_AfricaPearson=as.data.frame(Intervalos_AfricaPearson) 
@@ -100,6 +118,7 @@ Intervalos_AfricaSpearman=as.data.frame(Intervalos_AfricaSpearman)
 
 
 intervalos_Africa<-data.frame(Variables, Intervalos_AfricaPearson, Intervalos_AfricaSpearman)
+
 
 ########################################################################### Asia
 
@@ -198,7 +217,7 @@ PNBperCapita_America <- df_AmericaMaqueta$`Producto Nacional Bruto per capita`
 DeflactorPIB_America <- df_AmericaMaqueta$`Deflactor de PIB`
 
 # Argentina es un valor anomalo (c[-1]) en inflación
-# Haiti es un valor anomalo en el IDH [c(-16)]
+# Haiti es un valor anomalo en el IDH [c(-13)]
 
 # Verificación de hipótesis
 
@@ -243,17 +262,33 @@ Winsor_America<- Winsor_America  %>% rename("Winsor_America" = "temp")
 
 coeficientes_America <- data.frame(Variables, Pearson_America, Spearman_America, Winsor_America)
 
+
+
 # Intervalos de confianza
 # Pearson
-n <-nrow(df_AmericaMaqueta)
+n <-nrow(df_AmericaMaqueta[c(-16),])
 z_America <-z_fisher(Pearson_America)
 SE_pearsonAmerica <-SE_pearson(n)
 
 CI_lowersP<-Back_r(CI_lower(z_America, 1.96, SE_pearsonAmerica))
 CI_uppersP<-Back_r(CI_upper(z_America, 1.96, SE_pearsonAmerica))
 
+
+CI_lowersP<-CI_lowersP[-4]
+CI_uppersP<-CI_uppersP[-4]
+
+# Pearson Inf
+z_America <-z_fisher(Pearson_America[4])
+SE_pearsonAmerica <-SE_pearson(n-1)
+Inf_lower<-Back_r(CI_lower(z_America, 1.96, SE_pearsonAmerica))
+Inf_Upper<-Back_r(CI_upper(z_America, 1.96, SE_pearsonAmerica))
+
+
+CI_lowersP <- append(CI_lowersP,Inf_lower)
+CI_uppersP<-append(CI_uppersP,Inf_Upper)
+
 Intervalos_AmericaPearson<- cbind(CI_uppersP, CI_lowersP)
-Intervalos_AmericaPearson=as.data.frame(Intervalos_AmericaPearson) 
+Intervalos_AmericaPearson=as.data.frame(Intervalos_AmericaPearson)
 
 
 
@@ -358,9 +393,12 @@ intervalos_Europa<-data.frame(Variables, Intervalos_EuropaPearson, Intervalos_Eu
 coef <-  cbind(coeficientes_Africa, coeficientes_America,coeficientes_Asia, coeficientes_Europa)
 coef <- subset(coef, select = c(-5,-9,-13))
 
+write_xlsx(coef, "C:/Users/Ana/Desktop/II-2023/Estadistica I, CA0303/Proyecto/Bases de datos/coeficientes.xlsx")
+
 
 interval <-  cbind(intervalos_Africa, intervalos_America,intervalos_Asia, intervalos_Europa)
 interval <- subset(interval, select = c(-6,-11,-16))
+write_xlsx(interval, "C:/Users/Ana/Desktop/II-2023/Estadistica I, CA0303/Proyecto/Bases de datos/interval.xlsx")
 
 # Intervalos de confianza
 z_fisher <- function(r) {
@@ -385,5 +423,5 @@ Back_r <-function(z){
   (exp(2*z)-1)/(exp(2*z)+1)
 }
 
-write_xlsx(interval, "C:/Users/Ana/Desktop/II-2023/Estadistica I, CA0303/Proyecto/Bases de datos/resultados1.xlsx")
+
 
