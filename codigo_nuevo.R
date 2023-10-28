@@ -1,9 +1,8 @@
-######################################################################## Africa
 library("dplyr")
 library("tidyverse")
 library("WRS2")
 
-
+######################################################################## Africa
 # Se eliminan los países para los cuales falte uno o más datos
 
 df_AfricaMaqueta <- na.omit(df_Africaln)
@@ -93,7 +92,7 @@ CI_uppersP<-Back_r(CI_upper(z_Africa, 1.96, SE_pearsonAfrica))
 CI_lowersP<-CI_lowersP[-4]
 CI_uppersP<-CI_uppersP[-4]
 
-# Pearson Inf
+# Pearson Inflacion
 z_Africa <-z_fisher(Pearson_Africa[4])
 SE_pearsonAfrica <-SE_pearson(n-1)
 Inf_lower<-Back_r(CI_lower(z_Africa, 1.96, SE_pearsonAfrica))
@@ -293,6 +292,7 @@ Intervalos_AmericaPearson=as.data.frame(Intervalos_AmericaPearson)
 
 
 # Spearman
+n <-nrow(df_AmericaMaqueta)
 z_America <-z_fisher(Spearman_America)
 SE_spearmanAmerica <-SE_spearman(n)
 
@@ -303,6 +303,7 @@ Intervalos_AmericaSpearman<- cbind(CI_uppersS, CI_lowersS)
 Intervalos_AmericaSpearman=as.data.frame(Intervalos_AmericaSpearman) 
 
 intervalos_America<-data.frame(Variables, Intervalos_AmericaPearson, Intervalos_AmericaSpearman)
+
 
 
 
@@ -393,12 +394,12 @@ intervalos_Europa<-data.frame(Variables, Intervalos_EuropaPearson, Intervalos_Eu
 coef <-  cbind(coeficientes_Africa, coeficientes_America,coeficientes_Asia, coeficientes_Europa)
 coef <- subset(coef, select = c(-5,-9,-13))
 
-write_xlsx(coef, "C:/Users/Ana/Desktop/II-2023/Estadistica I, CA0303/Proyecto/Bases de datos/coeficientes.xlsx")
+#write_xlsx(coef, "C:/Users/Ana/Desktop/II-2023/Estadistica I, CA0303/Proyecto/Bases de datos/coeficientes.xlsx")
 
 
 interval <-  cbind(intervalos_Africa, intervalos_America,intervalos_Asia, intervalos_Europa)
 interval <- subset(interval, select = c(-6,-11,-16))
-write_xlsx(interval, "C:/Users/Ana/Desktop/II-2023/Estadistica I, CA0303/Proyecto/Bases de datos/interval.xlsx")
+#write_xlsx(interval, "C:/Users/Ana/Desktop/II-2023/Estadistica I, CA0303/Proyecto/Bases de datos/interval.xlsx")
 
 # Intervalos de confianza
 z_fisher <- function(r) {
