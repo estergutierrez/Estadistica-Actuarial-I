@@ -1,6 +1,7 @@
 library("TOSTER")
 library("dplyr")
 
+set.seed(7)
 ###############################################Africa
 data <- df_AfricaMaqueta
 
@@ -312,8 +313,8 @@ DeflactorPIB_America <- df_AmericaMaqueta$`Deflactor de PIB`
 
 #EVN
 IDH_EVNP <-boot_cor_test(
-  IDH_America[c(-13)], 
-  EsperanzaDeVida_America[c(-13)],
+  IDH_America[c(-16)], 
+  EsperanzaDeVida_America[c(-16)],
   alternative = c("two.sided"),
   method = c("pearson"),
   alpha = 0.05,
@@ -346,8 +347,8 @@ colnames(temp_EVN)[c(1, 2,3)] <- c("IDH_EVNP" ,
 
 #Desempleo
 IDH_DesP <-boot_cor_test(
-  IDH_America[c(-13)], 
-  Desempleo_America[c(-13)],
+  IDH_America[c(-16)], 
+  Desempleo_America[c(-16)],
   alternative = c("two.sided"),
   method = c("pearson"),
   alpha = 0.05,
@@ -379,8 +380,8 @@ colnames(temp_Des)[c(1, 2,3)] <- c("IDH_DesP" ,
                                    "IDH_DesW")
 # PNB
 IDH_PNBP <-boot_cor_test(
-  IDH_America[c(-13)], 
-  PNBperCapita_America[c(-13)],
+  IDH_America[c(-16)], 
+  PNBperCapita_America[c(-16)],
   alternative = c("two.sided"),
   method = c("pearson"),
   alpha = 0.05,
@@ -412,8 +413,8 @@ colnames(temp_PNB)[c(1, 2,3)] <- c("IDH_PNBP" ,
                                    "IDH_PNBW")
 # Deflactor
 IDH_InfP <-boot_cor_test(
-  IDH_America[c(-1,-13)], 
-  DeflactorPIB_America[c(-1,-13)],
+  IDH_America[c(-1,-16)], 
+  DeflactorPIB_America[c(-1,-16)],
   alternative = c("two.sided"),
   method = c("pearson"),
   alpha = 0.05,
@@ -604,4 +605,4 @@ data<-as.data.frame(p)
 data<-tibble::rownames_to_column(data, "rn")
 
 
-#write_xlsx(data, "C:/Users/Ana/Desktop/II-2023/Estadistica I, CA0303/Proyecto/Bases de datos/data.xlsx")
+write_xlsx(data, "C:/Users/Ana/Desktop/II-2023/Estadistica I, CA0303/Proyecto/Bases de datos/bootseed.xlsx")
