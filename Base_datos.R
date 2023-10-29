@@ -201,7 +201,7 @@ w<-h*1.6
 #Scatterplots
 #Globales
 ggplot(data=df_regions, mapping = aes(x =`Indice de desarrollo humano`, y=`Esperanza de vida al nacer`))+
-  geom_point(colour="#4F6D7A", shape=16,size=1)+ 
+  geom_point(colour="#4F6D7A", shape=16,size=2)+ 
   labs(x = "IDH",
        y = "EVN",
        title=" ")+ 
@@ -212,7 +212,7 @@ ggsave(filename = "IDHesperanza.pdf",width = w,height = h)
 
 
 ggplot(data=df_ln, mapping = aes(x =`Indice de desarrollo humano`, y=`Esperanza de vida al nacer`))+
-  geom_point(colour="#dd6e42", shape=16,size=1)+ 
+  geom_point(colour="#dd6e42", shape=16,size=2)+ 
   labs(x = "lnIDH",
        y = "lnEVN",
        title=" ")+expand_limits(x= 0)+ 
@@ -221,7 +221,7 @@ ggplot(data=df_ln, mapping = aes(x =`Indice de desarrollo humano`, y=`Esperanza 
 ggsave(filename = "logIDHesperanza.pdf",width = w,height = h)
 
 ggplot(data=df_regions, mapping = aes(x =`Indice de desarrollo humano`, y=`Desempleo total (% del total de la fuerza laboral)`))+
-  geom_point(colour="#4F6D7A", shape=16,size=1)+ 
+  geom_point(colour="#4F6D7A", shape=16,size=2)+ 
   labs(x = "IDH",
        y = "Desempleo total",
        title=" ")+ 
@@ -232,7 +232,7 @@ ggplot(data=df_regions, mapping = aes(x =`Indice de desarrollo humano`, y=`Desem
 ggsave(filename = "IDHDesempleo.pdf",width = w,height = h)
 
 ggplot(data=df_ln, mapping = aes(x =`Indice de desarrollo humano`, y=`Desempleo total (% del total de la fuerza laboral)`))+
-  geom_point(colour="#dd6e42", shape=16,size=1)+ 
+  geom_point(colour="#dd6e42", shape=16,size=2)+ 
   labs(x = "lnIDH",
        y = "lnDesempleo",
        title=" ")+ expand_limits(x= 0)+
@@ -242,7 +242,7 @@ ggplot(data=df_ln, mapping = aes(x =`Indice de desarrollo humano`, y=`Desempleo 
 ggsave(filename = "logIDHDesempleo.pdf",width = w,height = h)
 
 ggplot(data=df_regions, mapping = aes(x =`Indice de desarrollo humano`, y=`Producto Nacional Bruto per capita`))+
-  geom_point(colour="#4F6D7A", shape=16,size=1)+ 
+  geom_point(colour="#4F6D7A", shape=16,size=2)+ 
   labs(x = "IDH",
        y = "PNB per cápita",
        title=" ")+ 
@@ -253,7 +253,7 @@ ggplot(data=df_regions, mapping = aes(x =`Indice de desarrollo humano`, y=`Produ
 ggsave(filename = "IDHPNB.pdf",width = w,height = h)
 
 ggplot(data=df_ln, mapping = aes(x =`Indice de desarrollo humano`, y=`Producto Nacional Bruto per capita`))+
-  geom_point(colour="#dd6e42", shape=16,size=1)+ 
+  geom_point(colour="#dd6e42", shape=16,size=2)+ 
   labs(x = "lnIDH",
        y = "lnPNB per cápita",
        title=" ")+ expand_limits(x= 0)+
@@ -265,7 +265,7 @@ ggsave(filename = "logIDHPNB.pdf",width = w,height = h)
 
 
 ggplot(data=df_regions, mapping = aes(x =`Indice de desarrollo humano`, y= `Deflactor de PIB`))+
-  geom_point(colour="#4F6D7A", shape=16,size=1)+ 
+  geom_point(colour="#4F6D7A", shape=16,size=2)+ 
   labs(x = "IDH",
        y = "Deflactor del PIB",
        title=" ")+ 
@@ -276,7 +276,7 @@ ggplot(data=df_regions, mapping = aes(x =`Indice de desarrollo humano`, y= `Defl
 ggsave(filename = "IDHDef.pdf",width = w,height = h)
 
 ggplot(data=df_ln, mapping = aes(x =`Indice de desarrollo humano`, y= `Deflactor de PIB`))+
-  geom_point(colour="#dd6e42", shape=16,size=1)+ expand_limits(x= 0)+
+  geom_point(colour="#dd6e42", shape=16,size=2)+ expand_limits(x= 0)+
   labs(x = "ln IDH",
        y = "ln Deflactor del PIB",
        title=" ")+ 
